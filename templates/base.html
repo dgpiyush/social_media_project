@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Your Website Title</title>
+    {% load static %}
+
+    <!-- Add your CSS styles here if applicable -->
+    <link rel="stylesheet" type="text/css" href="{% static 'your-css-file.css' %}">
+    <style>
+
+        /* Reset some default styles for better consistency */
+        /* Reset some default styles for better consistency */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        /* Apply a background color and font family to the entire page */
+        body {
+            background-color: #f5f5f5;
+            font-family: Roboto, sans-serif;
+        }
+        
+        /* Create a container for your content and center it on the page */
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* Style the header and navigation links */
+        header {
+            background-color: #1976D2;
+            color: #fff;
+            padding: 10px 0;
+            text-align: center;
+        }
+        
+        nav ul {
+            list-style: none;
+        }
+        
+        nav ul li {
+            display: inline;
+            margin-right: 20px;
+        }
+        
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+        }
+        
+        /* Style the main content area */
+        main {
+            background-color: #f5f5f5;
+            padding: 20px;
+            margin-top: 20px;
+        }
+        
+        /* Style message cards */
+        .message {
+            background-color: #fff;
+            border: 1px solid #e0e0e0;
+            padding: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+            border-radius: 5px;
+        }
+        
+        /* Add options for each message card */
+        .message-options {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+        }
+        
+        .message-options a {
+            text-decoration: none;
+            color: #1976D2;
+            margin-right: 20px;
+        }
+        
+        /* Style your forms and buttons */
+        form {
+            margin-top: 20px;
+        }
+        
+        input[type="text"], textarea {
+            width: 100%;
+            padding: 10px;
+            margin-bottom: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+        }
+        
+        button {
+            background-color: #1976D2;
+            color: #fff;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+        
+        /* Add responsive styles for smaller screens if needed */
+        @media (max-width: 768px) {
+            main {
+                padding: 10px;
+            }
+        
+            .message, .comment {
+                padding: 10px;
+            }
+        }
+        
+    </style>
+    {% block style %}{% endblock style %}
+</head>
+<body>
+    <header>
+        <nav>
+            <ul>
+                <li><a href="{% url 'message_list' %}">Home</a></li>
+                {% if user.is_authenticated %}
+                    <li><a href="{% url 'logout' %}">Logout</a></li> <!-- Link to the logout page -->
+                    <li>Welcome, {{ user.username }}</li> <!-- Display the username of the logged-in user -->
+                {% else %}
+                    <li><a href="{% url 'login' %}">Login</a></li> <!-- Link to the login page -->
+                    <li><a href="{% url 'register' %}">Register</a></li> <!-- Link to the register page -->
+                {% endif %}
+    
+            </ul>
+        </nav>
+    </header>
+
+    <h1>
+        {% block heading %}{% endblock heading %}
+    </h1>
+    
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <!-- Add your JavaScript files here if applicable -->
+    <script src="{% static 'your-js-file.js' %}"></script>
+</body>
+</html>

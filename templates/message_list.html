@@ -1,0 +1,80 @@
+{% extends "base.html" %}
+
+
+{% block style %}
+
+<style>
+    /* Add styles for the message list */
+.message-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Style individual message cards */
+.message-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+/* Style the message content within the card */
+.message-content p {
+  margin: 0;
+  font-weight: bold;
+}
+
+/* Style the "View Comments" link */
+.view-comments-link {
+  color: #1976D2;
+  text-decoration: none;
+  display: block;
+  margin-top: 10px;
+}
+
+/* Style the "Edit" and "Delete" links for the message owner */
+.edit-link {
+  color: #1976D2;
+  text-decoration: none;
+  display: block;
+  margin-top: 10px;
+  margin-right: 10px;
+}
+
+.delete-link {
+  color: #d9534f;
+  text-decoration: none;
+  display: block;
+  margin-top: 10px;
+}
+
+</style>
+
+{% endblock style %}
+
+
+
+{% block content %}
+  <h1>Message List</h1>
+  <ul class="message-list">
+    {% for message in messages %}
+      <li class="message-card">
+        <div class="message-content">
+          <p>{{ message.content }} - {{ message.user.username }}</p>
+          <p>Likes: {{ message.likes.count }}</p>
+        </div>
+        
+        <a href="{% url 'like_message' message.id %}" class="like-link">Like</a>
+        <a href="{% url 'comment_list' message.id %}" class="view-comments-link">View Comments</a>
+        {% if user == message.user %}
+          <a href="{% url 'update_message' message.id %}" class="edit-link">Edit</a>
+          <a href="{% url 'delete_message' message.id %}" class="delete-link">Delete</a>
+        {% endif %}
+      </li>
+    {% endfor %}
+  </ul>
+  <a href="{% url 'create_message' %}" class="create-message-link">Create New Message</a>
+{% endblock %}
+

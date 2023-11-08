@@ -1,0 +1,13 @@
+{% extends "base.html" %}
+
+{% block content %}
+  <h1>Create Comment</h1>
+  <p>Commenting on: {{ message.content }} - {{ message.user.username }}</p>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Post Comment</button>
+  </form>
+  <a href="{% url 'comment_list' message.id %}">Back to Comments</a>
+  <a href="{% url 'message_list' %}">Back to Message List</a>
+{% endblock %}

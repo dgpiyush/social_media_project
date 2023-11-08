@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block style %}
+<style>
+    /* Add styles for the message card */
+.message-card {
+  background-color: #fff;
+  border: 1px solid #e0e0e0;
+  padding: 20px;
+  margin-bottom: 20px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  border-radius: 5px;
+}
+
+/* Style the message content within the card */
+.message-content p {
+  margin: 0;
+  font-weight: bold;
+}
+
+/* Style the comment list within the card */
+.comment-list {
+  list-style: none;
+  padding: 0;
+}
+
+/* Style individual comments within the card */
+.comment {
+  border-top: 1px solid #e0e0e0;
+  padding-top: 10px;
+  margin-top: 10px;
+}
+
+/* Style the "Like" link */
+.like-link {
+  color: #1976D2;
+  text-decoration: none;
+  margin-right: 20px;
+}
+
+/* Style the "Add a Comment" link */
+.add-comment-link {
+  display: block;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+/* Style the "Back to Message List" link */
+.back-link {
+  display: block;
+  margin-top: 20px;
+  text-decoration: none;
+}
+
+
+</style>
+
+{% endblock style %}
+
+{% block heading %}
+  Comments on {{ message.user.username }}'s Message
+{% endblock heading %}
+
+{% block content %}
+  <div class="message-card">
+    <div class="message-content">
+      <p>{{ message.content }} - {{ message.user.username }}</p>
+    </div>
+    <ul class="comment-list">
+      {% for comment in comments %}
+        <li class="comment">
+          <p>{{ comment.content }} - {{ comment.user.username }}</p>
+          <p>Likes: {{ comment.likes.count }}</p>
+          <a href="{% url 'like_comment' comment.id %}" class="like-link">Like</a>
+        </li>
+      {% endfor %}
+    </ul>
+    <a href="{% url 'create_comment' message.id %}" class="add-comment-link">Add a Comment</a>
+  </div>
+  <a href="{% url 'message_list' %}" class="back-link">Back to Message List</a>
+{% endblock %}
